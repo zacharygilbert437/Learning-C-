@@ -1,4 +1,4 @@
-﻿CheckTime();
+﻿ConvertToPascalCase();
 
 static void CountDivBy3()
 {
@@ -199,3 +199,13 @@ static void CheckTime()
     }
 
 }
+
+
+static void ConvertToPascalCase()
+{
+    Console.Write("Enter some words separated by a space: ");
+    string[] input = Console.ReadLine().Split();
+    IEnumerable<String> words = input.Select(x => Char.ToUpper(x[0]) + x.Substring(1).ToLower());
+    Console.WriteLine(String.Join("", words));
+}
+
