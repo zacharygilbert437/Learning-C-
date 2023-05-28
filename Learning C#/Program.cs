@@ -1,4 +1,4 @@
-﻿IsConsecutive();
+﻿CheckForDuplicates();
 
 static void CountDivBy3()
 {
@@ -88,7 +88,10 @@ static void GuessingGame()
     }
     Console.WriteLine("You lose.");
 }
-
+/* Prompt:
+ * Write a program and ask the user to enter a few numbers separated by a hyphen. Work out if the numbers are consecutive. 
+ * For example, if the input is "5-6-7-8-9" or "20-19-18-17-16", display a message: "Consecutive"; otherwise, display "Not Consecutive".
+*/
 static void IsConsecutive()
 {
     bool needInput = true;
@@ -119,5 +122,40 @@ static void IsConsecutive()
             isConsecutive = false;
     string output = isConsecutive ? "Conseuctive" : "Not consecutive";
     Console.WriteLine(output);
+}
 
+/* Prompt:
+ * Write a program and ask the user to enter a few numbers separated by a hyphen. 
+ * If the user simply presses Enter, without supplying an input, exit immediately; 
+ * otherwise, check to see if there are duplicates. If so, display "Duplicate" on the console. 
+*/
+static void CheckForDuplicates()
+{
+    bool needInput = true;
+    string[] numsAsStrings = { };
+    while (needInput)
+    {
+        needInput = false;
+        Console.Write("Enter any number of non-negative integers separated by a hyphen: ");
+        string input = Console.ReadLine();
+        if (String.IsNullOrEmpty(input))
+            Environment.Exit(0);
+        
+        numsAsStrings = input.Split('-');
+        foreach (string s in numsAsStrings)
+        {
+            try
+            {
+                int.Parse(s);
+            }
+            catch
+            {
+                Console.WriteLine($"{s} is not an integer. Please try again.");
+                needInput = true;
+            }
+        }
+    }
+    IEnumerable<int> nums = numsAsStrings.Select(x => int.Parse(x));
+    string output = nums.ToArray().Length == nums.Distinct().ToArray().Length ? "": "Duplicate"; 
+    Console.WriteLine(output);
 }
