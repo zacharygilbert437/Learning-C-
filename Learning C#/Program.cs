@@ -1,4 +1,4 @@
-﻿CheckForDuplicates();
+﻿CheckTime();
 
 static void CountDivBy3()
 {
@@ -158,4 +158,44 @@ static void CheckForDuplicates()
     IEnumerable<int> nums = numsAsStrings.Select(x => int.Parse(x));
     string output = nums.ToArray().Length == nums.Distinct().ToArray().Length ? "": "Duplicate"; 
     Console.WriteLine(output);
+}
+
+/* Prompt:
+ * Write a program and ask the user to enter a time value in the 24-hour time format (e.g. 19:00). 
+ * A valid time should be between 00:00 and 23:59. 
+ * If the time is valid, display "Ok"; otherwise, display "Invalid Time". 
+ * If the user doesn't provide any values, consider it as invalid time. 
+*/
+
+static void CheckTime()
+{
+    bool validTime = false;
+    while (!validTime)
+    {
+        Console.Write("Please enter a time in the format HH:mm: ");
+        string input = Console.ReadLine();
+        string[] times = input.Split(':');
+        try
+        {
+            int hours = int.Parse(times[0]);
+            int minutes = int.Parse(times[1]);
+
+            bool validMinuteFormat = times[1].Length == 2;
+            bool valid24HourTime = hours >=0 && minutes >=0 && hours < 24 && minutes < 60;
+
+            if (validMinuteFormat && valid24HourTime)
+            {
+                Console.WriteLine("Ok");
+                validTime = true;
+            }
+            else
+                Console.WriteLine($"{input} is not a valid time. Please try again");
+        }
+        catch
+        {
+            Console.WriteLine($"{input} is not a valid time. Please try again");
+        }
+            
+    }
+
 }
