@@ -1,8 +1,4 @@
-﻿
-
-using System.ComponentModel;
-
-GuessingGame();
+﻿IsConsecutive();
 
 static void CountDivBy3()
 {
@@ -93,14 +89,35 @@ static void GuessingGame()
     Console.WriteLine("You lose.");
 }
 
-static void FindMaximum()
-{
-    return;
-} 
-
-
 static void IsConsecutive()
 {
-    Console.Write("Enter any number of integers separated by a hyphen: ");
-    string input = Console.ReadLine() ;
+    bool needInput = true;
+    string[] input = { };
+    while (needInput)
+    {
+        needInput = false;
+        Console.Write("Enter any number of non-negative integers separated by a hyphen: ");
+        input = Console.ReadLine().Split('-');
+        foreach(string s in input)
+        {
+            try
+            {
+                int.Parse(s);
+            }
+            catch
+            {
+                Console.WriteLine($"{s} is not an integer. Please try again.");
+                needInput = true;
+            }
+        }
+    }
+    int[] nums = input.Select(x=>int.Parse(x)).ToArray();
+    int consecutiveDirection = nums[0] > nums[1] ? -1 : 1;
+    bool isConsecutive = true;
+    for (int i = 0;i < nums.Length - 1;i++)
+        if (nums[i] + consecutiveDirection != nums[i + 1])
+            isConsecutive = false;
+    string output = isConsecutive ? "Conseuctive" : "Not consecutive";
+    Console.WriteLine(output);
+
 }
