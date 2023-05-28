@@ -1,4 +1,4 @@
-﻿ConvertToPascalCase();
+﻿CountVowels();
 
 static void CountDivBy3()
 {
@@ -207,5 +207,14 @@ static void ConvertToPascalCase()
     string[] input = Console.ReadLine().Split();
     IEnumerable<String> words = input.Select(x => Char.ToUpper(x[0]) + x.Substring(1).ToLower());
     Console.WriteLine(String.Join("", words));
+}
+
+static void CountVowels()
+{
+    Console.Write("Enter an English word: ");
+    string input = Console.ReadLine().ToLower();
+    string vowels = "aeiou";
+    int vowelCount = input.Where(x => vowels.Contains(x)).ToArray().Length;
+    Console.WriteLine($"There are {vowelCount} vowels in {input}");
 }
 
